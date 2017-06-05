@@ -8,6 +8,8 @@
     <artifactId>Keycloak</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <packaging>pom</packaging>
+
     <properties>
         <java.version>1.8</java.version>
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
