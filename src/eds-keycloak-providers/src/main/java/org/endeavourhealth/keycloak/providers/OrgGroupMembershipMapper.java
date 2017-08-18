@@ -108,13 +108,15 @@ public class OrgGroupMembershipMapper extends AbstractOIDCProtocolMapper impleme
         boolean fullPath = useFullPath(mappingModel);
 
         Set<GroupModel> groupModels = userSession.getUser().getGroups();
-        addOrganisationIds(fullPath, groupModels, membershipMap);
+        Set<RoleModel> userRoleModels = userSession.getUser().getRoleMappings();  //get roles directly assigned to user
+
+        addOrganisationIds(fullPath, groupModels, membershipMap, userRoleModels);
 
         String protocolClaim = mappingModel.getConfig().get(OIDCAttributeMapperHelper.TOKEN_CLAIM_NAME);
         token.getOtherClaims().put(protocolClaim, membershipMap);
     }
 
-    private void addOrganisationIds(boolean fullPath, Set<GroupModel> groupModels, LinkedList<OrgGroupMembership> membershipMap) {
+    private void addOrganisationIds(boolean fullPath, Set<GroupModel> groupModels, LinkedList<OrgGroupMembership> membershipMap, Set<RoleModel> userRoleModels) {
         if (groupModels == null || groupModels.size() == 0)
             return;
 
@@ -134,17 +136,22 @@ public class OrgGroupMembershipMapper extends AbstractOIDCProtocolMapper impleme
 
             membershipMap.add(orgGroupMembership);
 
-            buildRoles(orgGroupMembership.getRoles(), group.getRoleMappings());
+            buildRoles(orgGroupMembership.getRoles(), group.getRoleMappings(), userRoleModels);
 
-            addOrganisationIds(fullPath, group.getSubGroups(), membershipMap);
+            addOrganisationIds(fullPath, group.getSubGroups(), membershipMap, userRoleModels);
         }
     }
 
-    private void buildRoles(List<String> orgGroupMembership, Set<RoleModel> roles) {
-        for(RoleModel role : roles) {
-            orgGroupMembership.add(role.getName());
-            if(role.isComposite()) {
-                buildRoles(orgGroupMembership, role.getComposites());
+    private void buildRoles(List<String> orgGroupMembership, Set<RoleModel> groupRoles, Set<RoleModel> userRoles) {
+        for(RoleModel groupRole : groupRoles) {
+
+            //Check if user is actually assigned to role and not just effective. Prevents user inheriting all group roles
+            if (!userRoles.contains(groupRole) && !groupRole.isClientRole())
+                continue;
+
+            orgGroupMembership.add(groupRole.getName());
+            if(groupRole.isComposite()) {
+                buildRoles(orgGroupMembership, groupRole.getComposites(), userRoles);
             }
         }
     }
