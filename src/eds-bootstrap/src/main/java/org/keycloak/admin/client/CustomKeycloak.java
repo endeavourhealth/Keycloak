@@ -4,6 +4,6 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 
 public class CustomKeycloak extends Keycloak {
     public CustomKeycloak(String serverUrl, String realm, String username, String password, String clientId, String clientSecret, String grantType, ResteasyClient resteasyClient) {
-        super(serverUrl, realm, username, password, clientId, clientSecret, grantType, resteasyClient);
+        super(serverUrl, realm, username, password, clientId, clientSecret, grantType, resteasyClient, "NO TOKEN");  //<---3.0.0.FINAL
     }
 }
