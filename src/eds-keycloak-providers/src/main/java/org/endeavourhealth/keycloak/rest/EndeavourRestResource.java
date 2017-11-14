@@ -14,7 +14,8 @@ import org.keycloak.services.managers.AppAuthManager;
 import org.keycloak.services.managers.AuthenticationManager;
 import org.keycloak.services.managers.RealmManager;
 import org.keycloak.services.resources.admin.AdminAuth;
-import org.keycloak.services.resources.admin.RealmAuth;
+import org.keycloak.services.resources.admin.permissions.AdminPermissionEvaluator;
+import org.keycloak.services.resources.admin.permissions.AdminPermissions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -60,9 +61,8 @@ public class EndeavourRestResource {
     public EndeavourGroupResource getEndeavourGroupResource(@Context final HttpHeaders headers) {
         ResteasyProviderFactory.getInstance().injectProperties(this);
         AdminAuth adminAuth = authenticateRealmAdminRequest(headers);
-        RealmAuth realmAuth = new RealmAuth(adminAuth, realm.getMasterAdminClient());
-        realmAuth.init(RealmAuth.Resource.REALM);
-        realmAuth.requireAny();
+        AdminPermissionEvaluator realmAuth = AdminPermissions.evaluator(session, realm, adminAuth);
+        realmAuth.realm().requireViewRealm();
         return new EndeavourGroupResource(this.realm, this.session, realmAuth);
     }
 

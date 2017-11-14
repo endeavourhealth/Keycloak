@@ -96,7 +96,7 @@ public class OrgGroupMembershipMapper extends AbstractOIDCProtocolMapper impleme
 
     @Override
     public AccessToken transformAccessToken(AccessToken token, ProtocolMapperModel mappingModel, KeycloakSession session,
-                                            UserSessionModel userSession, ClientSessionModel clientSession) {
+                                            UserSessionModel userSession, AuthenticatedClientSessionModel clientSession) {
         if (!OIDCAttributeMapperHelper.includeInAccessToken(mappingModel)) return token;
         buildMembership(token, mappingModel, userSession);
         return token;
@@ -157,7 +157,7 @@ public class OrgGroupMembershipMapper extends AbstractOIDCProtocolMapper impleme
     }
 
     @Override
-    public IDToken transformIDToken(IDToken token, ProtocolMapperModel mappingModel, KeycloakSession session, UserSessionModel userSession, ClientSessionModel clientSession) {
+    public IDToken transformIDToken(IDToken token, ProtocolMapperModel mappingModel, KeycloakSession session, UserSessionModel userSession, AuthenticatedClientSessionModel clientSession) {
         if (!OIDCAttributeMapperHelper.includeInIDToken(mappingModel)) return token;
         buildMembership(token, mappingModel, userSession);
         return token;
