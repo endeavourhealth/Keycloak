@@ -36,7 +36,7 @@
 
                         <div id="kc-form-buttons">
                             <div class="${properties.kcFormButtonsWrapperClass!}">
-                                <input class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonLargeClass!}" name="login" id="kc-login" type="submit" value="${msg("doLogIn")}"/>
+                                <input class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonLargeClass!}" name="login" id="kc-login" type="submit" value="Sign in"/>
                             </div>
                         </div>
 
@@ -69,7 +69,7 @@
             <div class="container">
                 <div id="kc-social-providers" class="col-md-4 col-md-offset-4">
                     <div id="kc-social-providers-prompt">
-                    or login using one of the following:
+                    or sign in using one of the following:
                     </div>
                     <ul>
                         <#list social.providers as p>
