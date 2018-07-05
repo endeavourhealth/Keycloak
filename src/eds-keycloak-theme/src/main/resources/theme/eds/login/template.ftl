@@ -59,7 +59,7 @@
                         <div id="kc-form-wrapper" class="${properties.kcFormAreaWrapperClass!}">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <div class="panel-heading"><div id="eds-logo"></div><span class="eds-logo-text">Data Service Manager</span></div>
+                                    <div class="panel-heading"><div id="eds-logo"></div><span class="eds-logo-text">Logon</span></div>
                                 </div>
                                 <div class="panel-body">
 
