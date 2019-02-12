@@ -54,7 +54,7 @@
                             </#if>
                             <div class="${properties.kcFormOptionsWrapperClass!}">
                                 <#if realm.resetPasswordAllowed>
-                                    <span><a class="kc-forgot-password" href="${url.loginResetCredentialsUrl}">${msg("doForgotPassword")}</a></span>
+                                    <span><a class="kc-forgot-password" href="${url.loginResetCredentialsUrl}">Forgot your password?</a></span>
                                 </#if>
                             </div>
                         </div>
