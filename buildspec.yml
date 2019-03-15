@@ -15,3 +15,8 @@ phases:
       - IP=$(curl http://checkip.amazonaws.com)/32
       - echo $IP of CodeBuild Instance
       - echo Build completed on `date`
+artifacts:
+  files:
+    - src/eds-keycloak-providers/target/rds-keycloak-providers.jar
+    - src/eds-keycloak-theme/target/eds-keycloak-theme-*.jar
+
