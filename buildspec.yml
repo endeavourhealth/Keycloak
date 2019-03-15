@@ -9,7 +9,7 @@ phases:
     commands:
       - echo Build started on `date`
       - chmod +x aws_scripts/build.sh
-      - aws_scripts/build.sh mvn -B deploy
+      - aws_scripts/build.sh mvn -B package
   post_build:
     commands:
       - IP=$(curl http://checkip.amazonaws.com)/32
