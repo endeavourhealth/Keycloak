@@ -96,7 +96,7 @@ public class OrgGroupMembershipMapper extends AbstractOIDCProtocolMapper impleme
 
     @Override
     public AccessToken transformAccessToken(AccessToken token, ProtocolMapperModel mappingModel, KeycloakSession session,
-                                            UserSessionModel userSession, AuthenticatedClientSessionModel clientSession) {
+                                            UserSessionModel userSession, ClientSessionContext clientSessionContext) {
         if (!OIDCAttributeMapperHelper.includeInAccessToken(mappingModel)) return token;
         buildMembership(token, mappingModel, userSession);
         return token;
@@ -157,7 +157,7 @@ public class OrgGroupMembershipMapper extends AbstractOIDCProtocolMapper impleme
     }
 
     @Override
-    public IDToken transformIDToken(IDToken token, ProtocolMapperModel mappingModel, KeycloakSession session, UserSessionModel userSession, AuthenticatedClientSessionModel clientSession) {
+    public IDToken transformIDToken(IDToken token, ProtocolMapperModel mappingModel, KeycloakSession session, UserSessionModel userSession, ClientSessionContext clientSession) {
         if (!OIDCAttributeMapperHelper.includeInIDToken(mappingModel)) return token;
         buildMembership(token, mappingModel, userSession);
         return token;
@@ -165,14 +165,14 @@ public class OrgGroupMembershipMapper extends AbstractOIDCProtocolMapper impleme
 
     public static ProtocolMapperModel create(String name,
                                              String tokenClaimName,
-                                             boolean consentRequired, String consentText,
+//                                             boolean consentRequired, String consentText,
                                              boolean accessToken, boolean idToken) {
         ProtocolMapperModel mapper = new ProtocolMapperModel();
         mapper.setName(name);
         mapper.setProtocolMapper(PROVIDER_ID);
         mapper.setProtocol(OIDCLoginProtocol.LOGIN_PROTOCOL);
-        mapper.setConsentRequired(consentRequired);
-        mapper.setConsentText(consentText);
+//        mapper.setConsentRequired(consentRequired);
+//        mapper.setConsentText(consentText);
         Map<String, String> config = new HashMap<String, String>();
         config.put(OIDCAttributeMapperHelper.TOKEN_CLAIM_NAME, tokenClaimName);
         if (accessToken) config.put(OIDCAttributeMapperHelper.INCLUDE_IN_ACCESS_TOKEN, "true");
