@@ -17,6 +17,6 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - src/eds-keycloak-providers/target/rds-keycloak-providers.jar
+    - src/eds-keycloak-providers/target/eds-keycloak-providers.jar
     - src/eds-keycloak-theme/target/eds-keycloak-theme-*.jar
-
+  discard-paths: yes
